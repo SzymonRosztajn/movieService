@@ -2,22 +2,24 @@ package com.pjwstk.movieService.repository;
 
 import com.pjwstk.movieService.model.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
-
+@Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    @Query("SELECT m FROM Movie m")
-    List<Movie> findAllMovies();
 
-    @Query("SELECT m FROM Movie m WHERE m.id = :id")
-    Movie findMovieById(@Param("id") Long id);
+    List<Movie> findAll();
 
-    @Modifying
-    @Query("UPDATE Movie m SET m.isAvailable = true WHERE m.id = :id")
-    void setMovieAvailable(@Param("id") Long id);
+    Optional<Movie> findById(Long id);
+
+    default void setMovieAvailable(Long id) {
+        Optional<Movie> optionalMovie = findById(id);
+        optionalMovie.ifPresent(movie -> {
+            movie.setAvailable(true);
+            save(movie);
+        });
+    }
 }

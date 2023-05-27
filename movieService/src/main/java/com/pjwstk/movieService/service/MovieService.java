@@ -31,6 +31,7 @@ public class MovieService {
         movies.add(movie);
         return movieRepository.save(movie);
     }
+
     public void setMovieAvailable(Long id) {
         movieRepository.setMovieAvailable(id);
     }
