@@ -32,7 +32,10 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    public void setMovieAvailable(Long id) {
-        movieRepository.setMovieAvailable(id);
+    public Movie setMovieAvailable(Long id) {
+        Movie movie = movieRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Movie not found for ID: " + id));
+        movie.setAvailable(true);
+        return movieRepository.save(movie);
     }
 }

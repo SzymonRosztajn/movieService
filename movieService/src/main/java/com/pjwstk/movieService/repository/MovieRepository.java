@@ -10,16 +10,10 @@ import java.util.Optional;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-
+    @Override
     List<Movie> findAll();
 
+    @Override
     Optional<Movie> findById(Long id);
 
-    default void setMovieAvailable(Long id) {
-        Optional<Movie> optionalMovie = findById(id);
-        optionalMovie.ifPresent(movie -> {
-            movie.setAvailable(true);
-            save(movie);
-        });
-    }
 }

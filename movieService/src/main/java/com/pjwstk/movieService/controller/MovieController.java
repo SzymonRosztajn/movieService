@@ -3,6 +3,7 @@ package com.pjwstk.movieService.controller;
 
 import com.pjwstk.movieService.model.Movie;
 import com.pjwstk.movieService.service.MovieService;
+import jakarta.persistence.Id;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,5 +41,10 @@ public class MovieController {
         }
         movie.setId(1);
         return ResponseEntity.ok(movieService.saveMovie(movie));
+    }
+    @PatchMapping("/movies/{id}")
+    public ResponseEntity<Movie> setMovieAsAvailable(@PathVariable Long id) {
+        Movie updatedMovie = movieService.setMovieAvailable(id);
+        return ResponseEntity.ok(updatedMovie);
     }
 }
