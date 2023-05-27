@@ -10,6 +10,8 @@ public class Movie {
     private String name;
     @Enumerated(EnumType.STRING)
     private Category category;
+    @Column(nullable = false)
+    private boolean isAvailable = false;
 
     public Movie(int id, String name, Category category) {
         this.id = id;
@@ -42,5 +44,13 @@ public class Movie {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }
